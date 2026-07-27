@@ -1,0 +1,44 @@
+.offers-page{
+    max-width:900px;
+    margin:40px auto;
+    padding:20px;
+}
+
+.offers-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.offer-item{
+    background:#fff;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.offer-item h2{
+    margin-bottom:10px;
+}
+
+.offer-meta{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:20px 0;
+    color:#666;
+}
+
+.offer-actions{
+    display:flex;
+    gap:10px;
+}
+
+.empty-card{
+    background:#fff;
+    border-radius:14px;
+    padding:50px;
+    text-align:center;
+}

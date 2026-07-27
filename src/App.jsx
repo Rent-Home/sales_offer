@@ -5,6 +5,8 @@ import BusinessLogin from "./pages/BusinessLogin";
 import BusinessRegister from "./pages/BusinessRegister";
 import Dashboard from "./pages/Dashboard";
 import CreateOffer from "./pages/CreateOffer";
+import MyOffers from "./pages/MyOffers";
+import EditOffer from "./pages/EditOffer";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,25 +20,42 @@ function App() {
       {/* Business */}
       <Route path="/business/login" element={<BusinessLogin />} />
       <Route path="/business/register" element={<BusinessRegister />} />
-      {/* <Route path="/business/dashboard" element={<Dashboard />} />
-      <Route path="/business/create-offer" element={<CreateOffer />} /> */}
-      <Route
-  path="/business/dashboard"
-  element={
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }
-/>
 
-<Route
-  path="/business/create-offer"
-  element={
-    <ProtectedRoute>
-      <CreateOffer />
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/business/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/business/create-offer"
+        element={
+          <ProtectedRoute>
+            <CreateOffer />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/business/my-offers"
+        element={
+          <ProtectedRoute>
+            <MyOffers />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/business/edit-offer/:id"
+        element={
+          <ProtectedRoute>
+            <EditOffer />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Admin */}
       <Route path="/admin/login" element={<AdminLogin />} />

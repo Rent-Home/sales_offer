@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../services/supabase";
-import { useBusinessAuth } from "../context/BusinessAuthContext";
 
-function CreateOffer() {
-  const { user } = useBusinessAuth();
+function EditOffer() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -17,8 +16,31 @@ function CreateOffer() {
     valid_to: "",
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  useEffect(() => {
+    loadOffer();
+  }, []);
+
+  async function loadOffer() {
+    const { data, error } = await supabase
+      .from("offers")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      alert(error.message);
+      navigate("/business/my-offers");
+      return;
+    }
+
+    setForm({
+      offer_title: data.offer_title,
+      offer_description: data.offer_description,
+      category: data.category,
+      valid_from: data.valid_from,
+      valid_to: data.valid_to,
+    });
+  }
 
   function handleChange(e) {
     setForm({
@@ -30,84 +52,47 @@ function CreateOffer() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setError("");
-    setSuccess("");
-
-    if (
-      !form.offer_title ||
-      !form.offer_description ||
-      !form.category ||
-      !form.valid_from ||
-      !form.valid_to
-    ) {
-      setError("Please fill all fields.");
-      return;
-    }
-
-    if (form.valid_to < form.valid_from) {
-      setError("Valid To date cannot be earlier than Valid From.");
-      return;
-    }
-
     setLoading(true);
 
     const { error } = await supabase
       .from("offers")
-      .insert({
-        business_id: user.id,
+      .update({
         offer_title: form.offer_title,
         offer_description: form.offer_description,
         category: form.category,
         valid_from: form.valid_from,
         valid_to: form.valid_to,
-      });
+      })
+      .eq("id", id);
 
     setLoading(false);
 
     if (error) {
-      setError(error.message);
+      alert(error.message);
       return;
     }
 
-    setSuccess("Offer submitted successfully!");
-
-    setTimeout(() => {
-      navigate("/business/dashboard");
-    }, 1200);
+    navigate("/business/my-offers");
   }
 
   return (
     <div className="form-page">
       <div className="form-card">
 
-        <h1>Create Offer</h1>
-        <p>Create a new offer for your customers.</p>
-
-        {error && (
-          <div className="error-box">
-            {error}
-          </div>
-        )}
-
-        {success && (
-          <div className="success-box">
-            {success}
-          </div>
-        )}
+        <h1>Edit Offer</h1>
 
         <form onSubmit={handleSubmit}>
 
           <input
             name="offer_title"
-            placeholder="Offer Title"
             value={form.offer_title}
             onChange={handleChange}
+            placeholder="Offer Title"
           />
 
           <textarea
-            name="offer_description"
-            placeholder="Offer Description"
             rows="5"
+            name="offer_description"
             value={form.offer_description}
             onChange={handleChange}
           />
@@ -117,7 +102,6 @@ function CreateOffer() {
             value={form.category}
             onChange={handleChange}
           >
-            <option value="">Select Category</option>
             <option>Restaurant</option>
             <option>Fashion</option>
             <option>Electronics</option>
@@ -150,7 +134,7 @@ function CreateOffer() {
             className="primary-btn"
             disabled={loading}
           >
-            {loading ? "Saving..." : "Create Offer"}
+            {loading ? "Updating..." : "Update Offer"}
           </button>
 
         </form>
@@ -160,4 +144,4 @@ function CreateOffer() {
   );
 }
 
-export default CreateOffer;
+export default EditOffer;

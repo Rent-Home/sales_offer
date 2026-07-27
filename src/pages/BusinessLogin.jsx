@@ -1,58 +1,109 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { supabase } from "../services/supabase";
 
 function BusinessLogin() {
-    return (
-        <>
-            <Navbar />
+  const navigate = useNavigate();
 
-            <div className="container">
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-                <div className="form-container">
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-                    <h2>Business Login</h2>
+  async function handleLogin(e) {
+    e.preventDefault();
 
-                    <div className="form-group">
-                        <label>Email</label>
+    setError("");
 
-                        <input
-                            type="email"
-                            placeholder="Enter Email"
-                        />
-                    </div>
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
 
-                    <div className="form-group">
-                        <label>Password</label>
+    setLoading(true);
 
-                        <input
-                            type="password"
-                            placeholder="Enter Password"
-                        />
-                    </div>
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-                    <button className="btn">
-                        Login
-                    </button>
+    setLoading(false);
 
-                    <br />
-                    <br />
+    if (error) {
+      setError(error.message);
+      return;
+    }
 
-                    <p>
-                        Don't have an account?
-                        {" "}
-                        <Link to="/business/register">
-                            Register Here
-                        </Link>
-                    </p>
+    navigate("/business/dashboard");
+  }
 
-                </div>
+  return (
+    <>
+      <Navbar />
 
+      <div className="container">
+        <div className="form-container">
+
+          <h2>Business Login</h2>
+
+          {error && (
+            <div className="error-box">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin}>
+
+            <div className="form-group">
+              <label>Email</label>
+
+              <input
+                type="email"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
 
-            <Footer />
-        </>
-    );
+            <div className="form-group">
+              <label>Password</label>
+
+              <input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn"
+              disabled={loading}
+            >
+              {loading ? "Logging In..." : "Login"}
+            </button>
+
+          </form>
+
+          <br />
+
+          <p>
+            Don't have an account?{" "}
+            <Link to="/business/register">
+              Register Here
+            </Link>
+          </p>
+
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
 }
 
 export default BusinessLogin;

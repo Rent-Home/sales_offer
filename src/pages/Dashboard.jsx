@@ -1,97 +1,77 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../services/supabase";
+import { useBusinessAuth } from "../context/BusinessAuthContext";
 
 function Dashboard() {
+  const { user } = useBusinessAuth();
+  const navigate = useNavigate();
 
-    return (
+  const [business, setBusiness] = useState(null);
 
-        <>
+  useEffect(() => {
+    loadBusiness();
+  }, []);
 
-            <Navbar />
+  async function loadBusiness() {
+    const { data, error } = await supabase
+      .from("businesses")
+      .select("*")
+      .eq("id", user.id)
+      .single();
 
-            <div className="container">
+    if (!error) {
+      setBusiness(data);
+    }
+  }
 
-                <h1
-                    style={{
-                        marginTop: "30px"
-                    }}
-                >
-                    Business Dashboard
-                </h1>
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    navigate("/business/login");
+  }
 
-                <br />
+  return (
+    <div className="dashboard-page">
 
-                <Link
-                    className="btn"
-                    to="/business/create-offer"
-                >
-                    + Create New Offer
-                </Link>
+      <div className="dashboard-card">
 
-                <br />
-                <br />
+        <h1>
+          Welcome {business?.business_name || "Business"} 👋
+        </h1>
 
-                <div className="offer-card">
+        <p>
+          Manage your offers from here.
+        </p>
 
-                    <h3>
+        <div className="dashboard-buttons">
 
-                        Flat 50% OFF
+          <button
+            className="primary-btn"
+            onClick={() => navigate("/business/create-offer")}
+          >
+            + Create Offer
+          </button>
 
-                    </h3>
+          <button
+            className="secondary-btn"
+           onClick={() => navigate("/business/my-offers")}
+          >
+            My Offers
+          </button>
 
-                    <p>
+          <button
+            className="logout-btn"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
 
-                        Status :
-                        <strong> Approved</strong>
+        </div>
 
-                    </p>
+      </div>
 
-                    <p>
-
-                        Valid Till :
-                        {" "}
-                        28 Jul 2026
-
-                    </p>
-
-                </div>
-
-                <br />
-
-                <div className="offer-card">
-
-                    <h3>
-
-                        Buy 1 Get 1
-
-                    </h3>
-
-                    <p>
-
-                        Status :
-                        <strong> Pending</strong>
-
-                    </p>
-
-                    <p>
-
-                        Valid Till :
-                        {" "}
-                        30 Jul 2026
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <Footer />
-
-        </>
-
-    );
-
+    </div>
+  );
 }
 
 export default Dashboard;
