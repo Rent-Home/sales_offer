@@ -4,16 +4,12 @@ function Footer() {
 
       <div className="container">
 
-        <h3>salesOffer.in</h3>
-
-        <p>
-          Discover the Best Local Deals in Anand
-        </p>
-
-        <br />
-
         <p>
           © 2026 salesOffer.in
+        </p>
+
+        <p>
+          Discover the best local offers in Anand.
         </p>
 
       </div>

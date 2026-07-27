@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="container nav-content">
+    <header className="navbar">
+      <div className="container navbar-container">
 
         <Link to="/" className="logo">
           salesOffer.in
         </Link>
 
-        <div className="nav-links">
+        <nav className="menu">
           <Link to="/">Home</Link>
 
           <Link to="/business/login">
@@ -19,14 +19,14 @@ function Navbar() {
           <Link to="/business/register">
             Register
           </Link>
+        </nav>
 
-          <Link to="/admin/login">
-            Admin
-          </Link>
+        <div className="mobile-menu">
+          ☰
         </div>
 
       </div>
-    </nav>
+    </header>
   );
 }
 
