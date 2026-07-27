@@ -1,0 +1,34 @@
+:root {
+
+  /* Colors */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+
+  --success: #16a34a;
+  --danger: #dc2626;
+
+  --background: #f5f7fb;
+  --card: #ffffff;
+
+  --text: #1f2937;
+  --text-light: #6b7280;
+
+  --border: #e5e7eb;
+
+  /* Radius */
+
+  --radius: 16px;
+
+  /* Shadow */
+
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+
+  /* Spacing */
+
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 18px;
+  --space-lg: 30px;
+  --space-xl: 50px;
+
+}
