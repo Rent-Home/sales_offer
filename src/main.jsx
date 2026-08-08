@@ -6,12 +6,15 @@ import App from "./App";
 import "./index.css";
 
 import { AuthProvider } from "./context/BusinessAuthContext";
+import { AdminAuthProvider } from "./context/AdminAuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+         <AdminAuthProvider>
+      <App />
+    </AdminAuthProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

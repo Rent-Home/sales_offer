@@ -1,0 +1,21 @@
+@media (max-width:768px){
+
+.business-header{
+    padding:12px;
+}
+
+.logo{
+    font-size:22px;
+}
+
+.business-name{
+    display:none;
+}
+
+.header-back-btn,
+.header-logout-btn{
+    font-size:14px;
+    padding:8px 12px;
+}
+
+}

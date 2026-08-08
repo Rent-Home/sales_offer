@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import { useBusinessAuth } from "../context/BusinessAuthContext";
+import BusinessHeader from "../components/BusinessHeader";
 
 function CreateOffer() {
   const { user } = useBusinessAuth();
@@ -51,6 +52,13 @@ function CreateOffer() {
 
     setLoading(true);
 
+    console.log("User from BusinessAuth:", user);
+
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    console.log("BusinessAuth User ID:", user.id);
+    console.log("User from Supabase Auth:", authUser);
     const { error } = await supabase
       .from("offers")
       .insert({
@@ -77,86 +85,93 @@ function CreateOffer() {
   }
 
   return (
-    <div className="form-page">
-      <div className="form-card">
 
-        <h1>Create Offer</h1>
-        <p>Create a new offer for your customers.</p>
+    <>
+      <BusinessHeader
+        backTo="/business/dashboard"
+        backText="Dashboard"
+      />
+      <div className="form-page">
+        <div className="form-card">
 
-        {error && (
-          <div className="error-box">
-            {error}
-          </div>
-        )}
+          <h1>Create Offer</h1>
+          <p>Create a new offer for your customers.</p>
 
-        {success && (
-          <div className="success-box">
-            {success}
-          </div>
-        )}
+          {error && (
+            <div className="error-box">
+              {error}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit}>
+          {success && (
+            <div className="success-box">
+              {success}
+            </div>
+          )}
 
-          <input
-            name="offer_title"
-            placeholder="Offer Title"
-            value={form.offer_title}
-            onChange={handleChange}
-          />
+          <form onSubmit={handleSubmit}>
 
-          <textarea
-            name="offer_description"
-            placeholder="Offer Description"
-            rows="5"
-            value={form.offer_description}
-            onChange={handleChange}
-          />
+            <input
+              name="offer_title"
+              placeholder="Offer Title"
+              value={form.offer_title}
+              onChange={handleChange}
+            />
 
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-          >
-            <option value="">Select Category</option>
-            <option>Restaurant</option>
-            <option>Fashion</option>
-            <option>Electronics</option>
-            <option>Medical</option>
-            <option>Salon</option>
-            <option>Grocery</option>
-            <option>Education</option>
-            <option>Other</option>
-          </select>
+            <textarea
+              name="offer_description"
+              placeholder="Offer Description"
+              rows="5"
+              value={form.offer_description}
+              onChange={handleChange}
+            />
 
-          <label>Valid From</label>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+            >
+              <option value="">Select Category</option>
+              <option>Restaurant</option>
+              <option>Fashion</option>
+              <option>Electronics</option>
+              <option>Medical</option>
+              <option>Salon</option>
+              <option>Grocery</option>
+              <option>Education</option>
+              <option>Other</option>
+            </select>
 
-          <input
-            type="date"
-            name="valid_from"
-            value={form.valid_from}
-            onChange={handleChange}
-          />
+            <label>Valid From</label>
 
-          <label>Valid To</label>
+            <input
+              type="date"
+              name="valid_from"
+              value={form.valid_from}
+              onChange={handleChange}
+            />
 
-          <input
-            type="date"
-            name="valid_to"
-            value={form.valid_to}
-            onChange={handleChange}
-          />
+            <label>Valid To</label>
 
-          <button
-            className="primary-btn"
-            disabled={loading}
-          >
-            {loading ? "Saving..." : "Create Offer"}
-          </button>
+            <input
+              type="date"
+              name="valid_to"
+              value={form.valid_to}
+              onChange={handleChange}
+            />
 
-        </form>
+            <button
+              className="primary-btn"
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Create Offer"}
+            </button>
 
+          </form>
+
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

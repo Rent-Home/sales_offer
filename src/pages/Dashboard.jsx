@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import { useBusinessAuth } from "../context/BusinessAuthContext";
-
+import BusinessHeader from "../components/BusinessHeader";
+//This is bussines dashboard
 function Dashboard() {
   const { user } = useBusinessAuth();
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ function Dashboard() {
   }
 
   return (
+    <>
+    <BusinessHeader />
+
     <div className="dashboard-page">
 
       <div className="dashboard-card">
@@ -71,6 +75,7 @@ function Dashboard() {
       </div>
 
     </div>
+      </>
   );
 }
 

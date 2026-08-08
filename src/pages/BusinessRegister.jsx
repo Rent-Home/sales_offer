@@ -16,11 +16,41 @@ function BusinessRegister() {
 
   const [loading, setLoading] = useState(false);
 
+  const [location, setLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+
+  const [locationCaptured, setLocationCaptured] = useState(false);
+
+
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+  };
+
+
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+
+        setLocationCaptured(true);
+      },
+      () => {
+        alert("Unable to get your location.");
+      }
+    );
   };
 
   const handleRegister = async (e) => {
@@ -47,6 +77,10 @@ function BusinessRegister() {
       alert("Enter valid mobile number.");
       return;
     }
+    if (!locationCaptured) {
+      alert("Please capture your business location.");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -63,11 +97,13 @@ function BusinessRegister() {
       const { error: profileError } = await supabase
         .from("businesses")
         .insert({
-          id: data.user.id,
-          business_name: form.business_name,
-          owner_name: form.owner_name,
-          mobile: form.mobile,
-        });
+  id: data.user.id,
+  business_name: form.business_name,
+  owner_name: form.owner_name,
+  mobile: form.mobile,
+  latitude: location.latitude,
+  longitude: location.longitude,
+});
 
       if (profileError) throw profileError;
 
@@ -139,6 +175,24 @@ function BusinessRegister() {
             value={form.confirmPassword}
             onChange={handleChange}
           />
+
+            <div className="location-box">
+
+  <button
+    type="button"
+    className="location-btn"
+    onClick={getCurrentLocation}
+  >
+    📍 Use Current Location
+  </button>
+
+  {locationCaptured && (
+    <p className="location-success">
+      ✅ Location Captured Successfully
+    </p>
+  )}
+
+</div>
 
           <button
             className="primary-btn"

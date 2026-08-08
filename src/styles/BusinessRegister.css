@@ -1,0 +1,28 @@
+.location-box{
+    margin:20px 0;
+    text-align:center;
+}
+
+.location-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.location-btn:hover{
+    background:#1d4ed8;
+}
+
+.location-success{
+    margin-top:12px;
+    color:#16a34a;
+    font-weight:600;
+    font-size:14px;
+}

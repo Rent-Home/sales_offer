@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../services/supabase";
+import BusinessHeader from "../components/BusinessHeader";
 
 function EditOffer() {
   const { id } = useParams();
@@ -62,6 +63,9 @@ function EditOffer() {
         category: form.category,
         valid_from: form.valid_from,
         valid_to: form.valid_to,
+        // Send edited offer for approval again
+  status: "Pending",
+  is_edited: true,
       })
       .eq("id", id);
 
@@ -72,10 +76,19 @@ function EditOffer() {
       return;
     }
 
-    navigate("/business/my-offers");
+    alert(
+  "Your offer has been updated and sent for admin approval."
+);
+
+navigate("/business/my-offers");
   }
 
   return (
+     <>
+    <BusinessHeader
+      backTo="/business/my-offers"
+      backText="My Offers"
+    />
     <div className="form-page">
       <div className="form-card">
 
@@ -141,6 +154,7 @@ function EditOffer() {
 
       </div>
     </div>
+    </>
   );
 }
 

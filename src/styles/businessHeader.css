@@ -1,0 +1,68 @@
+.business-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 25px;
+  background: #ffffff;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left{
+  width: 150px;
+}
+
+.logo{
+  flex: 1;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.header-back-btn{
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.header-back-btn:hover{
+  text-decoration: underline;
+}
+
+.header-logout-btn{
+  width: 150px;
+
+  background: #ef4444;
+  color: white;
+  border: none;
+
+  padding: 10px 16px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.header-logout-btn:hover{
+  background: #dc2626;
+}
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.business-name{
+    font-weight:600;
+    color:#444;
+    white-space:nowrap;
+}

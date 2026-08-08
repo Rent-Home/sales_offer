@@ -13,32 +13,48 @@ function BusinessLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleLogin(e) {
-    e.preventDefault();
+ async function handleLogin(e) {
+  e.preventDefault();
 
-    setError("");
+  setError("");
 
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
-    }
-
-    setLoading(true);
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-      return;
-    }
-
-    navigate("/business/dashboard");
+  if (!email || !password) {
+    setError("Please enter both email and password.");
+    return;
   }
+
+  setLoading(true);
+
+  // Step 1: Login with Supabase
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    setLoading(false);
+    setError(error.message);
+    return;
+  }
+
+  // Step 2: Check if the logged-in user is a registered business
+  const { data: businessData, error: businessError } = await supabase
+    .from("businesses")
+    .select("*")
+    .eq("id", data.user.id)
+    .single();
+
+  if (businessError || !businessData) {
+    await supabase.auth.signOut();
+    setLoading(false);
+    setError("Access denied. Business profile not found.");
+    return;
+  }
+
+  setLoading(false);
+
+  navigate("/business/dashboard");
+}
 
   return (
     <>

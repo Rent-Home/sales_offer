@@ -1,243 +1,214 @@
-/* ===========================
+/* ==========================================
    HERO
-=========================== */
+========================================== */
 
-.hero{
-
-padding:50px 0;
-
-text-align:center;
-
+.hero {
+    padding: 50px 0;
+    text-align: center;
 }
 
-.hero h1{
-
-margin-bottom:12px;
-
+.hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 12px;
 }
 
-.hero p{
-
-max-width:650px;
-
-margin:auto;
-
-margin-bottom:30px;
-
+.hero p {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    color: #6b7280;
+    font-size: 17px;
+    line-height: 1.6;
 }
 
-.search-box{
-
-margin:auto;
-
-max-width:600px;
-
-margin-bottom:25px;
-
+.search-box {
+    max-width: 600px;
+    margin: 0 auto 30px;
 }
 
-.categories{
+/* ==========================================
+   CATEGORY SECTION
+========================================== */
 
-display:flex;
-
-justify-content:center;
-
-gap:12px;
-
-flex-wrap:wrap;
-
-margin-bottom:40px;
-
+.categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
 }
 
-.category-btn{
-
-padding:10px 20px;
-
-background:white;
-
-border-radius:25px;
-
-border:1px solid var(--border);
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.25s;
-
+.category-btn {
+    padding: 10px 22px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+    transition: all .25s ease;
 }
 
-.category-btn:hover{
-
-background:var(--primary);
-
-color:white;
-
+.category-btn:hover {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    transform: translateY(-2px);
 }
 
-.offers{
-
-padding-bottom:60px;
-
+.category-btn.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
 }
 
-.offers h2{
+/* ==========================================
+   OFFERS
+========================================== */
 
-margin-bottom:25px;
-
+.offers {
+    padding-bottom: 60px;
 }
 
-.notification-box{
-
-margin-top:50px;
-
-background:white;
-
-padding:25px;
-
-border-radius:18px;
-
-text-align:center;
-
-box-shadow:var(--shadow);
-
+.offers h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #111827;
 }
 
-.notification-box h3{
+/* ==========================================
+   OFFER GRID
+========================================== */
 
-margin-bottom:10px;
-
+.offer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 25px;
 }
 
-.notification-box p{
+/* ==========================================
+   NOTIFICATION SECTION
+========================================== */
 
-margin-bottom:20px;
-
+.notification-box {
+    margin-top: 60px;
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
 }
 
-@media(max-width:768px){
-
-.hero{
-
-padding:35px 0;
-
+.notification-box h3 {
+    margin-bottom: 10px;
+    color: #111827;
 }
 
-.hero h1{
-
-font-size:30px;
-
+.notification-box p {
+    color: #6b7280;
+    margin-bottom: 22px;
 }
 
-.categories{
-
-justify-content:flex-start;
-
-overflow-x:auto;
-
-flex-wrap:nowrap;
-
-padding-bottom:10px;
-
-}
-
-.category-btn{
-
-flex-shrink:0;
-
-}
-
-
-/* ===========================
+/* ==========================================
    FOOTER
-=========================== */
+========================================== */
 
-.footer{
+.footer {
+    background: white;
+    padding: 40px 0;
+    margin-top: 60px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
 
-background:white;
+.footer p:first-child {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
 
-padding:35px 0;
+/* ==========================================
+   TABLET
+========================================== */
 
-margin-top:60px;
+@media (max-width: 992px) {
 
-border-top:1px solid var(--border);
+    .hero h1 {
+        font-size: 36px;
+    }
 
-text-align:center;
+    .offer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
 }
 
-.footer p:first-child{
+/* ==========================================
+   MOBILE
+========================================== */
 
-font-weight:700;
+@media (max-width: 768px) {
 
-margin-bottom:8px;
+    .hero {
+        padding: 35px 0;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .categories {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 10px;
+        scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-btn {
+        flex-shrink: 0;
+    }
+
+    .offer-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .notification-box {
+        padding: 25px;
+    }
 
 }
-/* ==========================
-   DASHBOARD
-========================== */
 
-.dashboard-page{
-    min-height:100vh;
-    background:#f4f7fb;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
+/* ==========================================
+   SMALL MOBILE
+========================================== */
 
-.dashboard-card{
-    width:100%;
-    max-width:500px;
-    background:#fff;
-    border-radius:18px;
-    padding:40px;
-    box-shadow:0 15px 35px rgba(0,0,0,.08);
-    text-align:center;
-}
+@media (max-width: 480px) {
 
-.dashboard-card h1{
-    margin-bottom:10px;
-    color:#222;
-}
+    .hero h1 {
+        font-size: 26px;
+    }
 
-.dashboard-card p{
-    color:#666;
-    margin-bottom:35px;
-}
+    .hero p {
+        font-size: 14px;
+    }
 
-.dashboard-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
+    .category-btn {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
 
-.secondary-btn{
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#16a34a;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-}
-
-.secondary-btn:hover{
-    background:#15803d;
-}
-
-.logout-btn{
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#ef4444;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-}
-
-.logout-btn:hover{
-    background:#dc2626;
-}
+   
 }

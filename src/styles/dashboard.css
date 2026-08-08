@@ -31,8 +31,48 @@
   margin-bottom: 35px;
 }
 
-.dashboard-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* ==========================
+   DASHBOARD BUTTONS
+========================== */
+
+.dashboard-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.primary-btn,
+.secondary-btn,
+.logout-btn{
+
+    width:100%;
+    padding:15px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#2563eb;
+    color:#fff;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.25s;
+
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+
+    background:#1d4ed8;
+    transform:translateY(-2px);
+
+}
+
+.logout-btn:hover{
+
+    background:#dc2626;
+    transform:translateY(-2px);
+
 }

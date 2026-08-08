@@ -65,4 +65,51 @@ font-size:22px;
 height:64px;
 }
 
+/* ==========================
+   NOTIFICATION BELL
+========================== */
+
+/* ==========================
+   NOTIFICATION NAV LINK
+========================== */
+
+.notification-bell{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+background:transparent;
+
+border:2px solid #2563eb;
+
+color:#2563eb;
+
+padding:8px 16px;
+
+border-radius:30px;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+font-family:inherit;
+
+}
+
+.notification-bell:hover{
+
+background:#2563eb;
+
+color:#fff;
+
+transform:translateY(-1px);
+
+}
 }

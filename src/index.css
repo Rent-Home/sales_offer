@@ -8,3 +8,10 @@
 @import "./styles/footer.css";
 @import "./styles/offers.css"; 
 @import "./styles/dashboard.css";
+@import "./styles/navigation.css";
+@import "./styles/businessHeader.css";
+@import "./styles/searchBar.css";
+@import "./styles/BusinessRegister.css";
+@import "./styles/adminDashboard.css";
+@import "./styles/notificationModal.css";
+@import "./styles/businessLogin.css";

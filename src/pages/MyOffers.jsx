@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import { useBusinessAuth } from "../context/BusinessAuthContext";
+import BusinessHeader from "../components/BusinessHeader";
 
 function MyOffers() {
   const { user } = useBusinessAuth();
@@ -54,6 +55,11 @@ function MyOffers() {
   }
 
   return (
+    <>
+    <BusinessHeader
+      backTo="/business/dashboard"
+      backText="Dashboard"
+    />
     <div className="offers-page">
 
       <div className="offers-header">
@@ -115,6 +121,7 @@ function MyOffers() {
       )}
 
     </div>
+     </>
   );
 }
 
