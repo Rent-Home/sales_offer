@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNotificationClick = () => {
-
     if (!("Notification" in window)) {
       alert("Your browser does not support notifications.");
       return;
@@ -21,22 +22,36 @@ function Navbar() {
       return;
     }
 
-    // Trigger our popup instead of requesting permission directly
+    // Open our notification popup
     window.dispatchEvent(new Event("openNotificationModal"));
+
+    // Close mobile menu
+    setMenuOpen(false);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
-    <header className="navbar">
-
+    <header>
       <div className="container navbar-container">
 
-        <Link to="/" className="logo">
+        {/* LOGO */}
+        <Link
+          to="/"
+          className="logo"
+          onClick={closeMenu}
+        >
           salesOffer.in
         </Link>
 
+        {/* DESKTOP MENU */}
         <nav className="menu">
 
-          <Link to="/">Home</Link>
+          <Link to="/">
+            Home
+          </Link>
 
           <Link to="/business/login">
             Business Login
@@ -51,17 +66,57 @@ function Navbar() {
             onClick={handleNotificationClick}
             title="Enable Notifications"
           >
-            🔔Notify Me
+            🔔 Notify Me
           </button>
 
         </nav>
 
-        <div className="mobile-menu">
-          ☰
-        </div>
+        {/* MOBILE HAMBURGER */}
+        <button
+          className="mobile-menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+
+        {/* MOBILE DROPDOWN */}
+        {menuOpen && (
+          <nav className="mobile-dropdown">
+
+            <Link
+              to="/"
+              onClick={closeMenu}
+            >
+              Home
+            </Link>
+
+            <Link
+              to="/business/login"
+              onClick={closeMenu}
+            >
+              Business Login
+            </Link>
+
+            <Link
+              to="/business/register"
+              onClick={closeMenu}
+            >
+              Register
+            </Link>
+
+            <button
+              className="mobile-notification-btn"
+              onClick={handleNotificationClick}
+            >
+              🔔 Notify Me
+            </button>
+
+          </nav>
+        )}
 
       </div>
-
     </header>
   );
 }
