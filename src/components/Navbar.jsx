@@ -43,7 +43,7 @@ function Navbar() {
           className="logo"
           onClick={closeMenu}
         >
-          salesOffer.in
+          LocalOffer.in
         </Link>
 
         {/* DESKTOP MENU */}
